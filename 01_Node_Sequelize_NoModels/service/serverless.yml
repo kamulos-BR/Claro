@@ -1,0 +1,90 @@
+service:
+  name: leads-prod
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: sa-east-1
+  versionFunctions: true
+  deploymentBucket:
+    name: serverless.bwr.prod
+  apiKeys:
+    - logger-leads-prod
+  apiGateway:
+    restApiId: 9obv45dc54
+    restApiRootResourceId: jksztbk8h7
+plugins:
+  - serverless-stage-manager
+  - serverless-latest-layer-version
+resources:
+  Resources:
+    GetSesssionGetLogGroup:
+      Type: 'AWS::Logs::LogGroup'
+      Properties:
+        RetentionInDays: '7'
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .git/**
+    - .idea/**
+    - ./reports/**
+    - .scannerwork/**
+    - .serverless/**
+    - '**/tests/**'
+custom:
+  stages:
+    - prod
+  warmup:
+    schedule: rate(5 minutes)
+    vpc: true
+    concurrency: 1
+    memorySize: 512
+    timeout: 120
+functions:
+  leadSetEmailEvents:
+    timeout: 25
+    events:
+      - http:
+          cors: &ref_0
+            origin: '*'
+            maxAge: 86400
+          private: false
+          method: post
+          path: /bwr/leads/email
+    handler: handler.leadSetEmailEvents
+    memorySize: 1024
+    layers: &ref_1
+      - 'arn:aws:lambda:sa-east-1:484006173714:layer:bwr-layer-prod:4'
+  leadSetFormEvents:
+    timeout: 25
+    events:
+      - http:
+          cors: *ref_0
+          private: false
+          method: post
+          path: /bwr/leads/form
+    handler: handler.leadSetFormEvents
+    memorySize: 1024
+    layers: *ref_1
+  leadSetChatEvents:
+    timeout: 25
+    events:
+      - http:
+          cors: *ref_0
+          private: false
+          method: post
+          path: /bwr/leads/chat
+    handler: handler.leadSetChatEvents
+    memorySize: 1024
+    layers: *ref_1
+  leadSetLeadConverted:
+    timeout: 25
+    events:
+      - http:
+          cors: *ref_0
+          private: false
+          method: get
+          path: '/bwr/leads/convert/{idLead}/{typeLead}/{typeVl}'
+    handler: handler.leadSetLeadConverted
+    memorySize: 1024
+    layers: *ref_1

@@ -1,0 +1,15 @@
+service: bwr-layer-prod
+
+provider:
+ name: aws
+ runtime: nodejs12.x
+ region: sa-east-1
+
+layers:
+  bwr-layer-prod:
+   path: layers
+   description: "BWR Main Layer"
+   compatibleRuntimes: 
+    - nodejs12.x
+   allowedAccounts:
+     - '*'

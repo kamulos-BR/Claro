@@ -1,0 +1,35 @@
+{
+  "name": "BWR-layer-project",
+  "version": "1.0.0",
+  "description": "BWR API Main Layer",
+  "author": "BWR",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npm update --only=prod && cd ../../../layer-repository/ && serverless deploy -s prod"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "atob": "^2.1.2",
+    "axios": "^0.21.1",
+    "btoa": "^1.2.1",
+    "deepdash": "^5.3.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "mocha": "^8.3.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "mysql2": "^2.2.5",
+    "pluralize": "^8.0.0",
+    "sequelize": "^6.5.0",
+    "striptags": "^3.1.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "js-yaml": "^3.14.1",
+    "serverless": "^1.83.2",
+    "serverless-plugin-split-stacks": "^1.11.0",
+    "serverless-plugin-warmup": "^4.9.0",
+    "serverless-stage-manager": "^1.0.5"
+  }
+}

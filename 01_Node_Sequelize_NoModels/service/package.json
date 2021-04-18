@@ -1,0 +1,43 @@
+{
+  "name": "BWR-api-project",
+  "version": "1.0.0",
+  "description": "BWR API Services",
+  "author": "BWR",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "npm run execute --theme=leads",
+    "execute": "npm run create-yml && npm run serverless-deploy",
+    "create-yml": "node ./src/lambdas-service/serverless-create/create.js -stage:prod",
+    "serverless-deploy": "./node_modules/.bin/serverless deploy -s prod"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "atob": "^2.1.2",
+    "aws-sdk": "^2.803.0",
+    "axios": "^0.21.1",
+    "btoa": "^1.2.1",
+    "colors": "^1.4.0",
+    "deepdash": "^5.3.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.17.1",
+    "jest-sonar-reporter": "^2.0.0",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.21",
+    "mocha": "^8.3.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "mysql2": "^2.2.5",
+    "pluralize": "^8.0.0",
+    "sequelize": "^6.5.0",
+    "serverless": "^1.83.2",
+    "serverless-aws-alias": "^1.8.0",
+    "serverless-latest-layer-version": "^2.1.0",
+    "serverless-plugin-split-stacks": "^1.9.3",
+    "serverless-plugin-warmup": "^4.9.0",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "serverless-stage-manager": "^1.0.5",
+    "striptags": "^3.1.1",
+    "winston": "^3.3.3"
+  }
+}
